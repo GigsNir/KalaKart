@@ -1,0 +1,177 @@
+<section class="middle">
+    <div class="container">
+        <h2 class="fw-bold mb-5">All Products (<span class="product_count">20</span>)</h2>
+        <div class="mb-5 d-flex justify-content-between align-items-center gap-2">
+            <input type="text" class="form-control rounded search-filter" placeholder="Search Products..." name="search-filter" id="" />
+            <button class="btn bg-primary text-white rounded"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Categories</h4>
+                        <div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input category-filter" value="1" id="category1" />
+                                    <label class="form-check-label fs-6" for="category1">Electronics</label>
+                                </div>
+                                <div>
+                                    <p class="mb-0">12</p>
+                                </div>
+                            </div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input category-filter" value="2" id="category2" />
+                                    <label class="form-check-label fs-6" for="category2">Clothing</label>
+                                </div>
+                                <div>
+                                    <p class="mb-0">8</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Price</h4>
+                        <div style="margin-left: -18px">
+                            <div class="mb-1 form-check">
+                                <input type="radio" name="price-filter" value="1" class="form-check-input" id="price1" />
+                                <label class="form-check-label fs-6" for="price1">Under $50</label>
+                            </div>
+                            <div class="mb-1 form-check">
+                                <input type="radio" name="price-filter" value="2" class="form-check-input" id="price2" />
+                                <label class="form-check-label fs-6" for="price2">$50 - $100</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Display</h4>
+                        <div style="margin-left: -18px">
+                            <div class="mb-1 form-check">
+                                <input type="radio" name="items-display" value="1" class="form-check-input items-display" id="display1" />
+                                <label class="form-check-label fs-6" for="display1">10 Products</label>
+                            </div>
+                            <div class="mb-1 form-check">
+                                <input type="radio" name="items-display" value="2" class="form-check-input items-display" id="display2" />
+                                <label class="form-check-label fs-6" for="display2">20 Products</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Rating</h4>
+                        <div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input rating-filter" value="1" id="rating1" />
+                                    <label class="form-check-label fs-6" for="rating1">4 Stars & Up</label>
+                                </div>
+                            </div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input rating-filter" value="2" id="rating2" />
+                                    <label class="form-check-label fs-6" for="rating2">3 Stars & Up</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Sizes</h4>
+                        <div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input size-filter" value="small" id="small" />
+                                    <label class="form-check-label fs-6" for="small">Small</label>
+                                </div>
+                            </div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div>
+                                    <input type="checkbox" class="form-check-input size-filter" value="large" id="large" />
+                                    <label class="form-check-label fs-6" for="large">Large</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border rounded p-3 mb-3">
+                    <div>
+                        <h4>Colors</h4>
+                        <div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="checkbox" class="form-check-input colors-filter" value="red" id="red" />
+                                    <label class="form-check-label fs-6 p-3 colors-filter" for="red" style="background-color: red; color: white; border-radius: 50%"></label>
+                                </div>
+                            </div>
+                            <div class="mb-1 form-check d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center gap-2">
+                                    <input type="checkbox" class="form-check-input colors-filter" value="blue" id="blue" />
+                                    <label class="form-check-label fs-6 p-3 colors-filter" for="blue" style="background-color: blue; color: white; border-radius: 50%"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn bg-primary btn-sm rounded reset_shop_filter_btn">Reset Filter <i class="fas fa-rotate ms-2"></i></button>
+            </div>
+            <div class="col-lg-9">
+                <div class="row align-items-center rows-products" id="products-list">
+                    <!-- Loop over products -->
+                    <div class="col-lg-4">
+                        <div class="product_grid card b-0 rounded-3 shadow m-2 p-2">
+                            <div class="card-body p-0">
+                                <div class="shop_thumb position-relative">
+                                    <a class="card-img-top d-block overflow-hidden" href="#"><img class="card-img-top" style="width: 100%; height: 230px; object-fit: cover" src="path/to/image.jpg" alt="Product Image" /></a>
+                                    <div class="product-left-hover-overlay">
+                                        <ul class="left-over-buttons">
+                                            <li>
+                                                <a href="javascript:void(0);" class="d-inline-flex circle align-items-center justify-content-center snackbar-wishlist"><i class="fas fa-heart position-absolute"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="d-inline-flex circle align-items-center justify-content-center snackbar-addcart"><i class="fas fa-shopping-cart position-absolute"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
+                                <div class="text-left">
+                                    <div class="text-left">
+                                        <div class="elso_titl"><span class="small">Electronics</span></div>
+                                        <h5 class="fs-md mb-0 lh-1 mb-1"><a href="#">Product Name</a></h5>
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0 mt-3">
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        </div>
+                                        <div class="elis_rty"><span class="ft-bold text-dark fs-sm">$99.99</span></div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <button type="button" class="btn btn-sm bg-primary text-white rounded add_to_cart">Add to cart <i class="fas fa-shopping-cart ms-2"></i></button>
+                                        <a href="#" class="me-2"><i class="fas fa-heart fs-4 text-danger"></i></a>
+                                        <input type="hidden" class="quantity" value="1" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

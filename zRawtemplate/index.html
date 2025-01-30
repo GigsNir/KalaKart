@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>E-commerce</title>
+        <link href="../assets/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    </head>
+    <body>
+        <div id="main-wrapper">
+            <div class="header header-dark dark-text">
+                <div class="container">
+                    <nav id="navigation" class="navigation navigation-landscape">
+                        <div class="nav-header">
+                            <a class="nav-brand" href="#">
+                                <img src="assets/img/logo.png" class="logo" alt="" />
+                            </a>
+                            <div class="nav-toggle"></div>
+                            <div class="mobile_nav">
+                                <ul>
+                                    <li>
+                                        <a href="#"><i class="fas fa-search-alt"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"><i class="fas fa-user"></i></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> <i class="fas fa-heart text-white"></i><span class="dn-counter">2</span> </a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> <i class="fas fa-shopping-cart"></i><span class="dn-counter">0</span> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="nav-menus-wrapper" style="transition-property: none">
+                            <ul class="nav-menu">
+                                <li><a href="/">Home</a></li>
+                                <li>
+                                    <a href="/shop.html">Shop</a>
+                                </li>
+                                <li>
+                                    <a href="/vendors.html">Vendors</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);">Pages</a>
+                                    <ul class="nav-dropdown nav-submenu">
+                                        <li><a href="blog.html">Blog</a></li>
+                                        <li><a href="about-us.html">About Us</a></li>
+                                        <li><a href="contact.html">Contact</a></li>
+                                        <li><a href="faq.html">FAQs</a></li>
+                                        <li><a href="privacy.html">Privacy Policy</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Track Order <i class="fas fa-truck ms-1"></i></a>
+                                </li>
+                            </ul>
+
+                            <ul class="nav-menu nav-menu-social align-to-right">
+                                <li>
+                                    <a href="#"><i class="fas fa-search text-white"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-user text-white"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-heart text-white"></i><span class="dn-counter">2</span> </a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fas fa-shopping-cart text-white"></i><span class="dn-counter">3</span> </a>
+                                </li>
+                                <li>
+                                    <a href="/auth/sign-in.html" class="btn bg-primary py-2 px-4 rounded text-white">Sign In <i class="fas fa-sign-in-alt ms-1"></i></a>
+                                </li>
+                                <li>
+                                    <a href="/auth/sign-up.html" class="btn bg-primary py-2 px-4 rounded text-white">Sign Up <i class="fas fa-user-plus ms-1"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+
+            <section class="p-0 pb-5 mb-5">
+                <div class="container">
+                    <div class="row d-flex justify-content-center align-items-center">
+                        <div class="col-12 col-lg-7 p-4 rounded-3 bg-white">
+                            <p class="text-secondary fs-4 mb-0 mt-5 mb-3">20% OFF Today Only! <img src="https://cdn-icons-png.flaticon.com/128/9004/9004955.png" width="30" alt="" /></p>
+                            <h1 class="display-4 fw-bold">
+                                Everything Tech,
+                                <span class="text-success">
+                                    <br />
+                                    Best Prices <br /><span class="text-dark">& Free Delivery</span></span
+                                >
+                            </h1>
+                            <p class="text-secondary fs-6 mt-4">Welcome to FastCart, shop faster, easier, securely, with good deals, customer support, fast refunds and many more amazing features that awaits you!</p>
+                            <div class="d-flex align-items-center gap-2 mt-5">
+                                <div class="d-flex align-items-center border rounded-3 bg-light w-75" s>
+                                    <input type="text" class="form-control shadow-none border-0 bg-transparent" placeholder="Search Item" name="" id="" />
+                                </div>
+                                <a href="{% url 'store:shop' %}" class="btn bg-primary text-white rounded"> <i class="fas fa-search text-white"></i></a>
+                            </div>
+                            <div class="d-flex justify-content-start gap-4 align-items-center mt-3">
+                                <p class="text-secondary">Free Delivery Today Only! <b>Terms & Confitions</b>Apply</p>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-start gap-5 fs-5 text-secondary mt-2">
+                                <i class="fab text-success fa-shopify"></i>
+                                <i class="fab fa-amazon"></i>
+                                <i class="fab text-success fa-ebay"></i>
+                                <i class="fab text-success fa-alipay"></i>
+                                <i class="fab fa-google"></i>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <img class="img-fluid rounded-3 w-100" style="height: 500px; width: 100%; object-fit: contain" src="{% static 'assets/img/home-hero.jpg' %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="middle mt-5">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="sec_title position-relative text-center">
+                                <h1 class="ft-bold pt-3">Trending Categories <img src="https://cdn-icons-png.flaticon.com/128/7183/7183999.png" width="40" alt="" /></h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center justify-content-center">
+                        <div class="col-xl-2 col-lg-2 col-md-3 col-sm-6 col-4">
+                            <div class="cats_side_wrap text-center mx-auto mb-3">
+                                <div class="sl_cat_01">
+                                    <div class="d-inline-flex align-items-center justify-content-center p-4 circle mb-2 border">
+                                        <a href="#" class="d-block">
+                                            <img src="..." class="img-fluid" width="40" alt="" />
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="sl_cat_02">
+                                    <h6 class="m-0 ft-medium fs-sm"><a href="#">Category Title</a></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="middle">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="sec_title position-relative text-center">
+                                <h1 class="ft-bold pt-3">Popular Products <img src="https://cdn-icons-png.flaticon.com/128/785/785116.png" width="40" alt="" /></h1>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center rows-products">
+                        <!-- Loop through products -->
+                        <div class="col-lg-3 mb-3">
+                            <div class="product_grid card b-0 rounded-3 shadow m-2 p-2">
+                                <div class="card-body p-0">
+                                    <div class="shop_thumb position-relative">
+                                        <a class="card-img-top d-block overflow-hidden" href="PRODUCT_DETAIL_URL">
+                                            <img class="card-img-top" style="width: 100%; height: 230px; object-fit: cover" src="PRODUCT_IMAGE_URL" alt="..." />
+                                        </a>
+                                        <div class="product-left-hover-overlay">
+                                            <ul class="left-over-buttons">
+                                                <li>
+                                                    <a href="javascript:void(0);" class="d-inline-flex circle align-items-center justify-content-center snackbar-wishlist">
+                                                        <i class="fas fa-heart position-absolute"></i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="d-inline-flex circle align-items-center justify-content-center snackbar-addcart">
+                                                        <i class="fas fa-shopping-cart position-absolute"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer b-0 p-0 pt-2 bg-white d-flex align-items-start justify-content-between">
+                                    <div class="text-left">
+                                        <div class="elso_titl">
+                                            <span class="small">CATEGORY_TITLE</span>
+                                        </div>
+                                        <h5 class="fs-md mb-0 lh-1 mb-1">
+                                            <a href="PRODUCT_PAGE_URL">PRODUCT_NAME</a>
+                                        </h5>
+                                        <div class="star-rating align-items-center d-flex justify-content-left mb-2 p-0 mt-3">
+                                            <!-- Rating Stars -->
+                                            <!-- Replace the following with the correct number of stars based on the product rating -->
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        </div>
+                                        <div class="elis_rty">
+                                            <span class="ft-bold text-dark fs-sm">$PRODUCT_PRICE</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <button type="button" class="btn btn-sm bg-primary text-white rounded add_to_cart" data-id="PRODUCT_ID">Add to cart <i class="fas fa-shopping-cart ms-2"></i></button>
+                                        <input type="hidden" class="quantity" value="1" name="" id="" />
+                                        <a href="" class="">
+                                            <i class="fas fa-heart fs-4 text-danger"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of loop -->
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="position-relative text-center">
+                                <a href="{% url 'store:shop' %}" class="btn bg-dark text-light rounded btn-sm mt-5">Shop Now <i class="fas fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="dark-footer skin-dark-footer style-2">
+                <div class="footer-middle">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                <div class="footer_widget">
+                                    <img src="assets/img/logo-light.png" class="img-footer small mb-2" alt="" />
+
+                                    <div class="address mt-3">123 Main Street ST <br />United States 324235</div>
+                                    <div class="address mt-3">+123 (456) 7890<br />info@ecommerce.com</div>
+                                    <div class="address mt-3">
+                                        <ul class="list-inline">
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fab fa-facebook"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fab fa-youtube"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <a href="#"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                                <div class="footer_widget">
+                                    <h4 class="widget_title">Supports</h4>
+                                    <ul class="footer-menu">
+                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a href="#">About Page</a></li>
+                                        <li><a href="#">Size Guide</a></li>
+                                        <li><a href="#">Shipping & Returns</a></li>
+                                        <li><a href="#">FAQ's Page</a></li>
+                                        <li><a href="#">Privacy</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                                <div class="footer_widget">
+                                    <h4 class="widget_title">Company</h4>
+                                    <ul class="footer-menu">
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Affiliate</a></li>
+                                        <li><a href="#">Login</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                <div class="footer_widget">
+                                    <h4 class="widget_title">Subscribe</h4>
+                                    <p>Receive updates, hot deals, discounts sent straignt in your inbox daily</p>
+                                    <div class="foot-news-last">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Email Address" />
+                                            <div class="input-group-append">
+                                                <button type="button" class="input-group-text b-0 text-light"><i class="fas fa-arrow-right"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="address mt-3">
+                                        <h5 class="fs-sm text-light">Secure Payments</h5>
+                                        <div class="scr_payment"><img src="assets/img/card.png" class="img-fluid" alt="" /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-lg-12 col-md-12 text-center">
+                                <p class="mb-0">© 2024 Ecommerce</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/js/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <script src="/assets/js/ion.rangeSlider.min.js"></script>
+        <script src="/assets/js/slick.js"></script>
+        <script src="/assets/js/slider-bg.js"></script>
+        <script src="/assets/js/lightbox.js"></script>
+        <script src="/assets/js/smoothproducts.js"></script>
+        <script src="/assets/js/snackbar.min.js"></script>
+        <script src="/assets/js/jQuery.style.switcher.js"></script>
+        <script src="/assets/js/custom.js"></script>
+    </body>
+</html>

@@ -1,0 +1,450 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="author" content="Ecommerce" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title>E-commerce</title>
+      <link href="{% static 'assets/css/styles.css' %}" rel="stylesheet" />
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
+
+    <style>
+      /* Ensure 'Pages' link color stays maroon even when not hovered */
+      .nav-menu > li > a {
+        color: #ffffff !important; /* Default link color */
+      }
+
+      /* Style for 'Pages' link specifically when hovered */
+      .nav-menu > li:hover > a {
+        color: #800000 !important; /* Maroon color for the Pages link when hovered */
+      }
+
+      /* Hover effect for the dropdown submenu items */
+      .nav-dropdown li a:hover {
+        color: #800000 !important; /* Maroon color for submenu items */
+      }
+
+      /* Ensure the dropdown stays visible when hovering over the 'Pages' link */
+      .nav-menu > li:hover .nav-dropdown {
+        display: block;
+        visibility: visible;
+      }
+
+      /* Specific styling for the 'Pages' link */
+      .nav-menu > li:nth-child(4) > a {
+        /* Assuming 'Pages' is the 4th list item */
+        color: #ffffff !important;
+      }
+
+      .nav-menu > li:nth-child(4):hover > a {
+        /* When 'Pages' is hovered */
+        color: #800000 !important; /* Maroon color */
+      }
+
+      /* Ensures the submenu for 'Pages' appears when hovering over it */
+      .nav-dropdown {
+        display: none;
+      }
+
+      
+
+      /* Show submenu on hover */
+      .nav-menu > li:hover .nav-dropdown {
+        display: block;
+      }
+
+      /* Keep background color of navbar and other links unchanged */
+      .header,
+      .nav-header {
+        background-color: #9a9a9a !important; /* Keep the background color unchanged */
+      }
+
+      .nav-menu > li > a {
+        color: #ffffff !important; /* Default color for navbar links */
+        padding: 1px 3px !important;
+      }
+
+      /* Hover effect for other navbar links */
+      .nav-menu > li > a:hover {
+        color: #9b2d2d !important; /* Lighter shade of maroon for hover */
+      }
+
+      /* Button Styles - Sign In & Sign Up */
+      .nav-menu .custom-btn {
+        background-color: #800000 !important;
+        color: #ffffff !important;
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+        text-decoration: none !important;
+        display: inline-block !important;
+        padding: 8px 16px !important;
+       
+      }
+
+      /* Hover effect for buttons */
+      .nav-menu .custom-btn:hover {
+        background-color: #9b2d2d !important;
+        color: #ffffff !important;
+      }
+
+    
+
+      
+
+
+
+      /* Product Description*/
+
+/* Product Category Color */
+.prt_01 span {
+    color: #800000 !important;
+    background-color: #f5e6e6 !important; /* Light maroon background */
+    padding: 4px 8px;
+   
+}
+
+/* Prices - Regular and Discounted */
+.elis_rty span {
+    color: #800000 !important;
+}
+
+/* In Stock Badge */
+.ft-regular.bg-success {
+    background-color: #800000 !important;
+    color: #ffffff !important;
+}
+
+/* Add to Cart Button */
+.btn.bg-primary {
+    background-color: #800000 !important;
+    border: none;
+}
+
+/* Add to Cart Button Hover Effect */
+.btn.bg-primary:hover {
+    background-color: #9b2d2d !important; /* Slightly lighter maroon */
+}
+
+      /* Index or Home*/
+
+/* Add to Cart Button */
+.add_to_cart {
+    background-color: #800000 !important;
+    border: none;
+    color: #ffffff !important;
+    padding: 6px 12px;
+    transition: background-color 0.3s ease;
+}
+
+/* Hover Effect for Add to Cart Button */
+.add_to_cart:hover {
+    background-color: #9b2d2d !important; /* Slightly lighter maroon */
+}
+
+/* Heart Icon
+.fas.fa-heart {
+    color: #800000 !important;
+    transition: color 0.3s ease;
+} */
+
+/* Heart Icon Hover */
+.fas.fa-heart:hover {
+    color: #9b2d2d !important;
+}
+
+   /* Ensure navbar stays in a single line */
+.nav-menus-wrapper {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+
+
+
+
+/* Fix mobile nav issue */
+@media (max-width: 991px) {
+    .nav-menus-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-menu {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+
+      
+    </style>
+  </head>
+  <body>
+    <div id="main-wrapper">
+      <div class="header header-dark dark-text">
+        <div class="container">
+          <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header" >
+              <a class="nav-brand" href="#">
+                <img
+                  src="{%static 'assets/img/logo.png'%}"
+                  class="logo"
+                  alt=""
+                />
+              </a>
+              <div class="nav-toggle"></div>
+              <div class="mobile_nav">
+                
+                  <ul>
+                    <li>
+                    <a href="#"><i class="fas fa-search-alt"></i></a>
+                    </li>
+                    <li>
+                    <a href="#"><i class="fas fa-user"></i></a>
+                    </li>
+                    <li>
+                    <a href="#">
+                      <i class="fas fa-heart text-white"></i
+                      ><span class="dn-counter">2</span>
+                    </a>
+                    </li>
+                    <li>
+                    <a href="{% url 'store:cart' %}">
+                      <i class="fas fa-shopping-cart"></i
+                      ><span class="dn-counter">0</span>
+                    </a>
+                    </li>
+                  </ul>
+                
+              </div>
+            </div>
+            <div class="nav-menus-wrapper" style="transition-property: none;">
+              <ul class="nav-menu">
+                <li><a href="/">Home</a></li>
+                <li>
+                  <a href="/shop.html">Shop</a>
+                </li>
+                <li>
+                  <a href="/vendors.html">Vendors</a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);">Pages</a>
+                  <ul class="nav-dropdown nav-submenu">
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about-us.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                  </ul>
+                </li>
+                <li><a href="/">Share</a></li>
+                <li>
+                <li>
+                  <a href="#">Track Order <i class="fas fa-truck ms-1"></i></a>
+                </li>
+              </ul>
+
+              <ul class="nav-menu nav-menu-social align-to-right">
+                <li>
+                  <a href="#"><i class="fas fa-search text-white"></i></a>
+                </li>
+                <li>
+                  <a href="#"><i class="fas fa-user text-white"></i></a>
+                </li>
+                <li>
+                  <a href="#"
+                    ><i class="fas fa-heart text-white"></i
+                    ><span class="dn-counter">2</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url 'store:cart' %}"
+                    ><i class="fas fa-shopping-cart text-white"></i
+                    ><span class="dn-counter total_cart_items">{{total_cart_items}}</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="/auth/sign-in.html"
+                    class="btn py-2 px-4 rounded custom-btn"
+                    >Sign In <i class="fas fa-sign-in-alt ms-1"></i
+                  ></a>
+                </li>
+
+                <li>
+                  <a
+                    href="/auth/sign-up.html"
+                    class="btn py-2 px-4 rounded custom-btn"
+                    >Sign Up <i class="fas fa-user-plus ms-1"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+
+      {% for message in messages %}
+      {% if message %}
+        <div class="alert alert-{{ message.tag }}">
+          <strong>{{ message }}</strong>
+        </div>
+      {% endif %}
+      {% endfor %}  
+      <!--Header ends-->
+
+      {% block content %} 
+      {% endblock content %}
+
+      <!--Footer starts-->
+      <footer class="dark-footer skin-dark-footer style-2">
+        <div class="footer-middle">
+          <div class="container">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="footer_widget">
+                  <img
+                    src="%static 'assets/img/logo-light.png'%"
+                    class="img-footer small mb-2"
+                    alt=""
+                  />
+
+                  <div class="address mt-3">
+                    123 Main Street ST <br />United States 324235
+                  </div>
+                  <div class="address mt-3">
+                    +123 (456) 7890<br />info@ecommerce.com
+                  </div>
+                  <div class="address mt-3">
+                    <ul class="list-inline">
+                      <li class="list-inline-item">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div class="footer_widget">
+                  <h4 class="widget_title">Supports</h4>
+                  <ul class="footer-menu">
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">About Page</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">FAQ's Page</a></li>
+                    <li><a href="#">Privacy</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+                <div class="footer_widget">
+                  <h4 class="widget_title">Company</h4>
+                  <ul class="footer-menu">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Affiliate</a></li>
+                    <li><a href="#">Login</a></li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="footer_widget">
+                  <h4 class="widget_title">Subscribe</h4>
+                  <p>
+                    Receive updates, hot deals, discounts sent straignt in your
+                    inbox daily
+                  </p>
+                  <div class="foot-news-last">
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Email Address"
+                      />
+                      <div class="input-group-append">
+                        <button
+                          type="button"
+                          class="input-group-text b-0 text-light"
+                        >
+                          <i class="fas fa-arrow-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="address mt-3">
+                    <h5 class="fs-sm text-light">Secure Payments</h5>
+                    <div class="scr_payment">
+                      <img
+                        src="%static 'assets/img/card.png' %"
+                        class="img-fluid"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-12 col-md-12 text-center">
+                <p class="mb-0">© 2024 Ecommerce</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script>
+      console.log("hello");
+    </script>
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.min.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/ion.rangeSlider.min.js' %}"></script>
+        <script src="{% static 'assets/js/slick.js' %}"></script>
+        <script src="{% static 'assets/js/slider-bg.js' %}"></script>
+        <script src="{% static 'assets/js/lightbox.js' %}"></script>
+        <script src="{% static 'assets/js/smoothproducts.js' %}"></script>
+        <script src="{% static 'assets/js/snackbar.min.js' %}"></script>
+        <script src="{% static 'assets/js/jQuery.style.switcher.js' %}"></script>
+        <script src="{% static 'assets/js/custom.js' %}"></script>
+        <script src="{% static 'assets/js/function.js' %}?v={{ time }}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </body>
+</html>

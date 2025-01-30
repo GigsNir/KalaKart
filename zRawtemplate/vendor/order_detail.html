@@ -1,0 +1,149 @@
+<head>
+    <meta charset="utf-8" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-commerce</title>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<section class="middle">
+    <div class="container-fluid">
+        <div class="row align-items-start justify-content-between">
+            <div class="col-12 col-md-12 col-lg-3 col-xl-2 miliods">
+                <div class="d-block border rounded header-dark">
+                    <div class="dashboard_author">
+                        <ul class="dahs_navbar">
+                            <li>
+                                <a href="/vendor/dashboard.html"><i class="bi bi-grid-fill me-2"></i>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/products.html"><i class="bi bi-grid-1x2-fill me-2"></i>Products</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/create_product.html"><i class="fas fa-plus-circle me-2"></i>Create Product</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/orders.html" class="active"><i class="fas fa-shopping-cart me-2"></i>Orders</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/coupons.html"><i class="fas fa-tag me-2"></i>Coupons</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/reviews.html"><i class="fas fa-star me-2"></i>Reviews</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/notifications.html"><i class="fas fa-bell me-2"></i>Notifications</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/profile.html"><i class="fas fa-user me-2"></i>Profile</a>
+                            </li>
+                            <li>
+                                <a href="/auth/sign-in.html"><i class="fas fa-power-off me-2"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-9 col-xl-10">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="row mb-4">
+                        <h4 class="mb-0 mb-2 fw-bold">Order Number: #214053</h4>
+                    </div>
+
+                    <div>
+                        <form action="" class="d-flex"></form>
+                            <select name="" id="" class="form-select">
+                                <option value="">Order Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Fulfilled">Fulfilled</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                            <button class="btn btn bg-primary btn-sm rounded text-white w-100 mt-2">Save <i class="fas fa-save ms-2"></i></button>
+                        </form>
+                    </div>
+               </div>
+
+                <div class="order-data">
+                    <div class="ord_list_wrap border mb-4 mfliud">
+                        <div class="ord_list_body text-left">
+                            <!-- Single Item -->
+                            <div class="row align-items-center justify-content-center m-0 py-4 br-bottom">
+                                <div class="col-xl-6 col-lg-5 col-md-5 col-12">
+                                    <div class="cart_single d-flex align-items-start mfliud-bot gap-3">
+                                        <div class="cart_selected_single_thumb">
+                                            <a href="#"><img src="../assets/img/shop/1.png" width="75" class="img-fluid rounded" alt="" /></a>
+                                        </div>
+                                        <div class="cart_single_caption pl-3">
+                                            <h4 class="product_title fs-sm ft-medium mb-1 lh-1">Iphone 13 pro max</h4>
+                                            <p class="mb-2">
+                                                <span class="text-dark medium">Vendor: Sam Jay</span> <br />
+                                                <span class="text-dark medium">Color: Black</span>
+                                            </p>
+                                            <h4 class="fs-sm ft-bold mb-0 lh-1">$129</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-lg-3 col-md-3 col-6">
+                                    <p class="mb-1 p-0"><span class="text-muted">Status</span></p>
+                                    <div class="delv_status"><span class="ft-medium small text-warning bg-light-warning rounded px-3 py-1">Shipped</span></div>
+                                </div>
+                                <div class="col-xl-2 col-lg-4 col-md-4 col-6">
+                                    <p class="mb-1 p-0"><span class="text-muted">Payment Status</span></p>
+                                    <h6 class="mb-0 ft-medium fs-sm">Paid</h6>
+                                </div>
+                                <div class="col-xl-2 col-lg-4 col-md-4 col-6">
+                                    <a href="" class="btn bg-primary text-white btn-sm rounded"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ord_list_footer d-flex align-items-center justify-content-between br-top px-3">
+                            <div class="col-xl-12 pr-0 py-2 olf_flex d-flex align-items-center justify-content-between">
+                                <div class="olf_flex_inner hide_mob">
+                                    <p class="m-0 p-0"><span class="text-muted medium">Paid using PayPal</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="mt-5 mb-2 fw-bold">Order Summary</h4>
+                    <div class="">
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Sub-total:</span> $1,210</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Shipping:</span> $10</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Tax:</span> $3.99</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Discount:</span> -$113.99</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Total:</span> $1113.99</h5>
+                    </div>
+
+                    <h4 class="mt-5 mb-2 fw-bold">Bio Data</h4>
+                    <div class="">
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Full Name:</span> Sam jay</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Email:</span> samjay@123.com</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Mobile:</span> +123 (456) 7890</h5>
+                    </div>
+
+                    <h4 class="mt-5 mb-2 fw-bold">Shipping Details</h4>
+                    <div class="">
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Address:</span> 123 Main Street</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">City:</span> Austin</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">State:</span> Texas</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Country:</span> United States</h5>
+                        <h5 class="mb-2 fs-sm"><span class="fw-bold">Zip:</span> 101203</h5>
+                    </div>
+
+                    <h4 class="mt-5 mb-2 fw-bold">Order Message</h4>
+                    <div class="">
+                        <h5 class="mb-2 fs-sm">
+                            <span class="fw-bold">Message:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo nemo eos sed dolorum beatae accusantium <br />
+                            a error eius dolore aspernatur iure accusamus alias, deleniti quidem aliquam dolor ut delectus repellendus!
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,355 @@
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-commerce</title>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<div class="header header-dark dark-text">
+    <div class="container-fluid">
+        <nav id="navigation" class="navigation navigation-landscape">
+            <div class="nav-header">
+                <a class="nav-brand" href="#">
+                    <img src="/assets/img/logo.png" class="logo" alt="" />
+                </a>
+                <div class="nav-toggle"></div>
+                <div class="mobile_nav">
+                    <ul>
+                        <li>
+                            <a href="#"><i class="fas fa-search-alt"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-user"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fas fa-heart text-white"></i><span class="dn-counter">2</span> </a>
+                        </li>
+                        <li>
+                            <a href="#"> <i class="fas fa-shopping-basket"></i><span class="dn-counter">0</span> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="nav-menus-wrapper mt-2" style="transition-property: none">
+                <ul class="nav-menu">
+                    <li>
+                        <a href="/vendor/dashboard.html">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/products.html">Products</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/create-product.html">Create Product</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/orders.html">Orders</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/coupons.html">Coupons</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/reviews.html">Reviews</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/coupons.html">Notifications</a>
+                    </li>
+                    <li>
+                        <a href="/vendor/profile.html">Settings</a>
+                    </li>
+                </ul>
+
+                <ul class="nav-menu nav-menu-social align-to-right">
+                    <li>
+                        <a href="/auth/sign-up.html" class="btn bg-primary py-2 px-4 rounded text-white"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<section class="middle">
+    <div class="container-fluid">
+        <div class="row align-items-start justify-content-between">
+            <div class="col-12 col-md-12 col-lg-3 col-xl-2 miliods">
+                <div class="d-block border rounded header-dark">
+                    <div class="dashboard_author">
+                        <ul class="dahs_navbar">
+                            <li>
+                                <a href="/vendor/dashboard.html" class="active"><i class="bi bi-grid-fill me-2"></i>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/products.html"><i class="bi bi-grid-1x2-fill me-2"></i>Products</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/create_product.html"><i class="fas fa-plus-circle me-2"></i>Create Product</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/orders.html"><i class="fas fa-shopping-cart me-2"></i>Orders</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/coupons.html"><i class="fas fa-tag me-2"></i>Coupons</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/reviews.html"><i class="fas fa-star me-2"></i>Reviews</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/notifications.html"><i class="fas fa-bell me-2"></i>Notifications</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/profile.html"><i class="fas fa-user me-2"></i>Profile</a>
+                            </li>
+                            <li>
+                                <a href="/auth/sign-in.html"><i class="fas fa-power-off me-2"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-9 col-xl-10">
+                <!-- Single Order List -->
+                <div class="row mb-4">
+                    <h4 class="mb-0 mb-4 fw-bold">Dashboard Overview</h4>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="bi bi-grid-fill text-info"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">13</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Products</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="fas fa-shopping-cart text-danger"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">51</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Orders</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="fas fa-wallet text-warning"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">$50.00</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="fas fa-bell text-primary"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">3</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Notifications</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="fas fa-bell text-dark"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">32</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Reviews</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-3">
+                        <div class="d-flex justify-content-center align-items-center p-4 shadow-sm rounded">
+                            <span class="display-6 text-danger">
+                                <i class="fas fa-shopping-cart text-info"></i>
+                            </span>
+                            <div class="ms-4">
+                                <div class="d-flex">
+                                    <h5 class="mb-0 fw-bold">3.5</h5>
+                                </div>
+                                <p class="mb-0 h6 fw-semibold">Rating</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
+                <h4 class="mb-0 mb-4 fw-bold">Products (16)</h4>
+
+                <div class="row align-items-center">
+                    <!-- Single -->
+                    <div class="col-lg-6">
+                        <div class="product_grid row">
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+                                <div class="shop_thumb position-relative">
+                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html">
+                                        <img class="card-img-top" src="/assets/img/shop/1.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px" alt="..." />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12">
+                                <div class="text-left mfliud">
+                                    <h5 class="fs-md mb-2 lh-1 ft-medium"><a href="shop-single-v1.html">Iphone 12 Pro Max</a></h5>
+                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                    <div class="elis_rty mb-1">Price: <span class="ft-bold text-dark fs-sm">$1,229.09</span></div>
+                                    <div class="elis_rty mb-1">Rating: <span class="ft-bold text-dark fs-sm">3.5 Rating</span></div>
+                                    <div class="elis_rty mb-1">Review: <span class="ft-bold text-dark fs-sm">6 Reviews</span></div>
+                                    <div class="elis_rty mb-1">Orders: <span class="ft-bold text-dark fs-sm">26 Orders</span></div>
+
+                                    <div class="position-relative text-left mt-4">
+                                        <a href="#" class="btn bg-info rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="btn bg-primary rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn bg-danger rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product_grid row">
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+                                <div class="shop_thumb position-relative">
+                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html">
+                                        <img class="card-img-top" src="/assets/img/shop/1.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px" alt="..." />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12">
+                                <div class="text-left mfliud">
+                                    <h5 class="fs-md mb-2 lh-1 ft-medium"><a href="shop-single-v1.html">Iphone 12 Pro Max</a></h5>
+                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                    <div class="elis_rty mb-1">Price: <span class="ft-bold text-dark fs-sm">$1,229.09</span></div>
+                                    <div class="elis_rty mb-1">Rating: <span class="ft-bold text-dark fs-sm">3.5 Rating</span></div>
+                                    <div class="elis_rty mb-1">Review: <span class="ft-bold text-dark fs-sm">6 Reviews</span></div>
+                                    <div class="elis_rty mb-1">Orders: <span class="ft-bold text-dark fs-sm">26 Orders</span></div>
+
+                                    <div class="position-relative text-left mt-4">
+                                        <a href="#" class="btn bg-info rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="btn bg-primary rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn bg-danger rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product_grid row">
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+                                <div class="shop_thumb position-relative">
+                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html">
+                                        <img class="card-img-top" src="/assets/img/shop/1.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px" alt="..." />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12">
+                                <div class="text-left mfliud">
+                                    <h5 class="fs-md mb-2 lh-1 ft-medium"><a href="shop-single-v1.html">Iphone 12 Pro Max</a></h5>
+                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                    <div class="elis_rty mb-1">Price: <span class="ft-bold text-dark fs-sm">$1,229.09</span></div>
+                                    <div class="elis_rty mb-1">Rating: <span class="ft-bold text-dark fs-sm">3.5 Rating</span></div>
+                                    <div class="elis_rty mb-1">Review: <span class="ft-bold text-dark fs-sm">6 Reviews</span></div>
+                                    <div class="elis_rty mb-1">Orders: <span class="ft-bold text-dark fs-sm">26 Orders</span></div>
+
+                                    <div class="position-relative text-left mt-4">
+                                        <a href="#" class="btn bg-info rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="btn bg-primary rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn bg-danger rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="product_grid row">
+                            <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+                                <div class="shop_thumb position-relative">
+                                    <a class="card-img-top d-block overflow-hidden" href="shop-single-v1.html">
+                                        <img class="card-img-top" src="/assets/img/shop/1.png" style="width: 100%; height: 250px; object-fit: cover; border-radius: 10px" alt="..." />
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12">
+                                <div class="text-left mfliud">
+                                    <h5 class="fs-md mb-2 lh-1 ft-medium"><a href="shop-single-v1.html">Iphone 12 Pro Max</a></h5>
+                                    <div class="star-rating align-items-center d-flex justify-content-left mb-1 p-0">
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                        <i class="fas fa-star filled"></i>
+                                    </div>
+                                    <div class="elis_rty mb-1">Price: <span class="ft-bold text-dark fs-sm">$1,229.09</span></div>
+                                    <div class="elis_rty mb-1">Rating: <span class="ft-bold text-dark fs-sm">3.5 Rating</span></div>
+                                    <div class="elis_rty mb-1">Review: <span class="ft-bold text-dark fs-sm">6 Reviews</span></div>
+                                    <div class="elis_rty mb-1">Orders: <span class="ft-bold text-dark fs-sm">26 Orders</span></div>
+
+                                    <div class="position-relative text-left mt-4">
+                                        <a href="#" class="btn bg-info rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-eye"></i></a>
+                                        <a href="#" class="btn bg-primary rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-edit"></i></a>
+                                        <a href="#" class="btn bg-danger rounded text-white btn-sm borders snackbar-addcart"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <a href="#" class="btn bg-primary rounded text-white">View All Products <i class="fas fa-arrow-right ms-2"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="/assets/js/ion.rangeSlider.min.js"></script>
+<script src="/assets/js/slick.js"></script>
+<script src="/assets/js/slider-bg.js"></script>
+<script src="/assets/js/lightbox.js"></script>
+<script src="/assets/js/smoothproducts.js"></script>
+<script src="/assets/js/snackbar.min.js"></script>
+<script src="/assets/js/jQuery.style.switcher.js"></script>
+<script src="/assets/js/custom.js"></script>

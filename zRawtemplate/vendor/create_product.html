@@ -1,0 +1,136 @@
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>E-commerce</title>
+    <link href="../assets/css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+</head>
+
+<section class="middle">
+    <div class="container-fluid">
+        <div class="row align-items-start justify-content-between">
+            <div class="col-12 col-md-12 col-lg-3 col-xl-2 miliods">
+                <div class="d-block border rounded header-dark">
+                    <div class="dashboard_author">
+                        <ul class="dahs_navbar">
+                            <li>
+                                <a href="/vendor/dashboard.html"><i class="bi bi-grid-fill me-2"></i>Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/products.html"><i class="bi bi-grid-1x2-fill me-2"></i>Products</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/create_product.html" class="active"><i class="fas fa-plus-circle me-2"></i>Create Product</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/orders.html"><i class="fas fa-shopping-cart me-2"></i>Orders</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/coupons.html"><i class="fas fa-tag me-2"></i>Coupons</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/reviews.html"><i class="fas fa-star me-2"></i>Reviews</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/notifications.html"><i class="fas fa-bell me-2"></i>Notifications</a>
+                            </li>
+                            <li>
+                                <a href="/vendor/profile.html"><i class="fas fa-user me-2"></i>Profile</a>
+                            </li>
+                            <li>
+                                <a href="/auth/sign-in.html"><i class="fas fa-power-off me-2"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-lg-9 col-xl-10">
+                <h4 class="mb-0 mb-4 fw-bold">Create Product</h4>
+                <div class="card border-0 shadow mb-4">
+                    <div class="card-body">
+                        <div class="">
+                            <div class="row mt-0">
+                                <form class="pb-8 mt-2" method="POST" enctype="multipart/form-data">
+                                    <div class="card border-0 mb-3">
+                                        <!-- Basic Info Section -->
+                                        <div class="card-header border-0 px-4 py-3 rounded">
+                                            <h4 class="mb-0">Basic Information</h4>
+                                        </div>
+                                        <div class="card-body border-0">
+                                            <div class="text-center d-flex justify-content-center align-items-center">
+                                                <img id="imagePreview" src="" alt="Image preview will appear here" style="width: 100%; height: 500px; object-fit: cover; border-radius: 10px; display: none" />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="imageInput" class="form-label">Product Thumbnail</label>
+                                                <input name="image" id="imageInput" class="form-control rounded" type="file" accept="image/*" onchange="previewImage(event)" />
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label for="productTitle" class="form-label">Title</label>
+                                                <input name="name" id="productTitle" class="form-control rounded" type="text" placeholder="" />
+                                                <small>Write a 60 character product title.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Product category</label>
+                                                <select name="category_id" class="form-select">
+                                                    <option value="">-------------</option>
+                                                    <option value="">Mobile</option>
+                                                    <option value="">Computers</option>
+                                                    <option value="">Cloths</option>
+                                                </select>
+                                                <small> Help people find your products by choosing categories that represent your product. </small>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Product Description</label>
+                                                <textarea name="description" class="form-control rounded" cols="30" rows="10"></textarea>
+                                                <small>A brief summary of your product.</small>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="productPrice" class="form-label">Regular Price</label>
+                                                <input name="regular_price" id="productPrice" class="form-control rounded" type="number" placeholder="$20.99" />
+                                            </div>
+                                            <div>
+                                                <label for="productPrice" class="form-label">Sale Price</label>
+                                                <input name="price" id="productPrice" class="form-control rounded" type="number" placeholder="$8.70" />
+                                            </div>
+                                            <div>
+                                                <label for="productPrice" class="form-label">Shipping Fee</label>
+                                                <input name="shipping" id="productPrice" class="form-control rounded" type="number" placeholder="Shipping fee" />
+                                            </div>
+                                            <div>
+                                                <label for="productPrice" class="form-label">Stock</label>
+                                                <input name="stock" id="productPrice" class="form-control rounded" type="number" placeholder="Stock Count" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="/vendor/update_product.html" class="btn btn-lg bg-success rounded btn-sm text-white w-100 mt-2" type="submit">Continue <i class="fas fa-arrow-right"></i></a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function previewImage(event) {
+        const imageInput = event.target.files[0]; // Get the selected file
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            const preview = document.getElementById("imagePreview");
+            preview.src = reader.result; // Set the image source to the base64 result
+            preview.style.display = "block"; // Make the image visible
+        };
+
+        if (imageInput) {
+            reader.readAsDataURL(imageInput); // Read the file as a Data URL
+        }
+    }
+</script>
