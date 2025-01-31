@@ -79,7 +79,7 @@ def add_to_cart(request):
         "message": message,
         "total_cart_items": total_cart_items,
         "cart_sub_total": "{:,.2f}".format(cart_sub_total),
-        "items_sub_total": "{:,.2f}".format(existing_cart_items.sub_total if existing_cart_items else cart_sub_total)
+        "item_sub_total": "{:,.2f}".format(existing_cart_items.sub_total if existing_cart_items else cart_sub_total)
     })
 
 def cart(request):
@@ -125,7 +125,7 @@ def delete_cart_item(request):
     item.delete()
 
     total_cart_items=store_models.Cart.objects.filter( Q(cart_id=cart_id) | Q(user= request.user))
-    cart_sub_total= store_models.Cart.objects.filter( Q(cart_id=cart_id) | Q(user= request.user)).aggregate(sub_total= Sum("sub_total"))['cart_sub_total']
+    cart_sub_total= store_models.Cart.objects.filter( Q(cart_id=cart_id) | Q(user= request.user)).aggregate(sub_total= Sum("sub_total"))['sub_total']
 
     return JsonResponse({
         "message":"Item deleted",

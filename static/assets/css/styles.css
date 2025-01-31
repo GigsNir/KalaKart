@@ -81,7 +81,7 @@ a.text-success:hover {
 
 a.text-primary:focus,
 a.text-primary:hover {
-    color: #006cff !important;
+    color: #800000 !important;
 }
 
 a.text-warning:focus,
@@ -599,7 +599,7 @@ ul.list-style.style-2 li:before {
 }
 
 [data-overlay].bg--primary:before {
-    background: #4a90e2;
+    background: #800000;
 }
 
 [data-overlay="1"]:before {
@@ -729,7 +729,7 @@ div[data-overlay] p {
 }
 
 .gr_bg {
-    background: #006cff;
+    background: #800000;
     background: -webkit-linear-gradient(to right, #12ca86, #006cff);
     background: linear-gradient(to right, #12ca86, #006cff);
 }

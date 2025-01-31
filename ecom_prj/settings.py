@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'blog',
     'django_browser_reload',
     'django_extensions',
+    'django.contrib.humanize',
 
     'anymail',
     'django_ckeditor_5',
