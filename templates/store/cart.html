@@ -41,102 +41,106 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-9">
-                <h4 class="fw-bold p-3">Cart items</h4>
-                <div style="overflow-y: scroll; max-height: 650px; overflow-x: hidden" class="p-3">
-                   
-                    {% for item in items %}
-                    <div class="shadow rounded mb-3 item_div_{{item.id}}" >
-                        <div class="row d-flex align-items-center p-3">
-                            <div class="col-lg-4 d-flex gap-3">
-                                <img src="{{item.product.image.url}}" alt="" style="width: 100px; height: 100px; object-fit: cover" />
-                                <div class="p-2">
-                                    <h5>{{item.product.name}}</h5>
-                                    <p class="mb-0 mt-0">Price: Rs{{item.price}}</p>
-                                    <p class="mb-0 mt-0">Vendor: {{item.product.vendor.profile.full_name}}</p>
+
+        <form action="{% url 'store:create_order' %}" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-9">
+                    <h4 class="fw-bold p-3">Cart items</h4>
+                    <div style="overflow-y: scroll; max-height: 650px; overflow-x: hidden" class="p-3">
+                    
+                        {% for item in items %}
+                        <div class="shadow rounded mb-3 item_div_{{item.id}}" >
+                            <div class="row d-flex align-items-center p-3">
+                                <div class="col-lg-4 d-flex gap-3">
+                                    <img src="{{item.product.image.url}}" alt="" style="width: 100px; height: 100px; object-fit: cover" />
+                                    <div class="p-2">
+                                        <h5>{{item.product.name}}</h5>
+                                        <p class="mb-0 mt-0">Price: Rs{{item.price}}</p>
+                                        <p class="mb-0 mt-0">Vendor: {{item.product.vendor.profile.full_name}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h4 class="fs-3">Rs{{item.price |intcomma}}</h4>
+                                </div>
+                                <div class="col-lg-2 d-flex">
+                                    <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="decrease" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">-</button>
+                                    <input type="text" class="form-control form-sm item-qty-{{item.id}}" value="{{item.qty}}" name="" id="" />
+                                    <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="increase" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">+</button>
+                                </div>
+                                <div class="col-lg-2">
+                                    <h4 class="fs-3 mb-0">Rs <span class="item_sub_total_{{item.id}}">{{item.sub_total | intcomma}}</span></h4>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn bg-danger text-white btn-sm rounded delete_cart_item" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}"><i class="fas fa-trash"></i></button>
                                 </div>
                             </div>
-                            <div class="col-lg-2">
-                                <h4 class="fs-3">Rs{{item.price |intcomma}}</h4>
+                        </div>
+                        {% endfor %}
+                    
+                    </div>
+
+                    <div class="p-3">
+                        <h4 class="fw-bold mb-3">Shipping Detail</h4>
+
+                        <div class="row">
+                        {% for address in addresses %}
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                <div class="card-wrap border rounded mb-4">
+                                    <div class="card-wrap-header px-3 py-2 br-bottom d-flex align-items-center justify-content-between">
+                                        <div class="card-heafder-flex">
+                                            <h4 class="fs-md ft-bold mb-1">Shipping Address</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-wrap-body px-3 py-3">
+                                        <p class="mb-0"><span class="fw-bold">Full Name: </span>{{address.full_name}}</p>
+                                        <p class="mb-0"><span class="fw-bold">Email: </span>{{address.email}}</p>
+                                        <p class="mb-0"><span class="fw-bold">Mobile: </span>{{address.mobile}}</p>
+                                        <p class="mb-0"><span class="fw-bold">Address: </span>{{address.address}}</p>
+                                        <p class="mb-0"><span class="fw-bold">City: </span> {{address.city}}</p>
+                                        <p class="mb-0"><span class="fw-bold">Country: </span> {{address.country}}</p>
+                                        <div class="mt-3">
+                                            <input id="address{{address.id}}" value = "{{address.id}}" class="radio-custom" name="address" type="radio" />
+                                            <label for="address{{address.id}}" class="radio-custom-label">Select Address</label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-2 d-flex">
-                                <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="decrease" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">-</button>
-                                <input type="text" class="form-control form-sm item-qty-{{item.id}}" value="{{item.qty}}" name="" id="" />
-                                <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="increase" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">+</button>
+                        {% endfor %}
+
+                        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <h4 class="fw-bold">Order Summary</h4>
+                    <div class="shadow rounded p-3 mt-5">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="fw-semibold fs-6">Sub-total</p>
+                                <p class="fs-6">Rs <span class="cart_sub_total">{{cart_sub_total | intcomma}}</span></p>
                             </div>
-                            <div class="col-lg-2">
-                                <h4 class="fs-3 mb-0">Rs <span class="item_sub_total_{{item.id}}">{{item.sub_total | intcomma}}</span></h4>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="fw-semibold fs-6">Shipping</p>
+                                <p class="fs-6">Rs 0.00</p>
                             </div>
-                            <div class="col-lg-2">
-                                <button class="btn bg-danger text-white btn-sm rounded delete_cart_item" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}"><i class="fas fa-trash"></i></button>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="fw-semibold fs-6">Tax</p>
+                                <p class="fs-6">Rs 0.00</p>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <p class="fw-bold text-dark fs-5">Total</p>
+                                <p class="fw-bold text-dark fs-5">Rs <span class="cart_sub_total">{{cart_sub_total |intcomma}}</span></p>
                             </div>
                         </div>
                     </div>
-                    {% endfor %}
-                 
-                </div>
 
-                <div class="p-3">
-                    <h4 class="fw-bold mb-3">Shipping Detail</h4>
-
-                    <div class="row">
-                       {% for address in addresses %}
-                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                            <div class="card-wrap border rounded mb-4">
-                                <div class="card-wrap-header px-3 py-2 br-bottom d-flex align-items-center justify-content-between">
-                                    <div class="card-heafder-flex">
-                                        <h4 class="fs-md ft-bold mb-1">Shipping Address</h4>
-                                    </div>
-                                </div>
-                                <div class="card-wrap-body px-3 py-3">
-                                    <p class="mb-0"><span class="fw-bold">Full Name: </span>{{address.full_name}}</p>
-                                    <p class="mb-0"><span class="fw-bold">Email: </span>{{address.email}}</p>
-                                    <p class="mb-0"><span class="fw-bold">Mobile: </span>{{address.mobile}}</p>
-                                    <p class="mb-0"><span class="fw-bold">Address: </span>{{address.address}}</p>
-                                    <p class="mb-0"><span class="fw-bold">City: </span> {{address.city}}</p>
-                                    <p class="mb-0"><span class="fw-bold">Country: </span> {{address.country}}</p>
-                                    <div class="mt-3">
-                                        <input id="address{{address.id}}" value = "{{address.id}}" class="radio-custom" name="address" type="radio" />
-                                        <label for="address{{address.id}}" class="radio-custom-label">Select Address</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                       {% endfor %}
-
-                      
+                    <div class="d-flex justify-content-center w-100 mt-3">
+                        <button type="submit"  class="btn bg-primary rounded text-white w-100">Proceed To Checkout <i class="fas fa-arrow-right ms-1"></i>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <h4 class="fw-bold">Order Summary</h4>
-                <div class="shadow rounded p-3 mt-5">
-                    <div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="fw-semibold fs-6">Sub-total</p>
-                            <p class="fs-6">Rs <span class="cart_sub_total">{{cart_sub_total | intcomma}}</span></p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="fw-semibold fs-6">Shipping</p>
-                            <p class="fs-6">Rs 0.00</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="fw-semibold fs-6">Tax</p>
-                            <p class="fs-6">Rs 0.00</p>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <p class="fw-bold text-dark fs-5">Total</p>
-                            <p class="fw-bold text-dark fs-5">Rs <span class="cart_sub_total">{{cart_sub_total |intcomma}}</span></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-center w-100 mt-3">
-                    <a href="/checkout.html" class="btn bg-primary rounded text-white w-100">Proceed To Checkout <i class="fas fa-arrow-right ms-1"></i></a>
-                </div>
-            </div>
-        </div>
+        </form>
     </div>
 </section>
 

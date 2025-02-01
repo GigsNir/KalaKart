@@ -185,6 +185,7 @@ class Order(models.Model):
     order_status = models.CharField(max_length=100, choices=ORDER_STATUS, default="Pending")
     initial_total = models.DecimalField(default=0.00, max_digits=12, decimal_places=2, help_text="The original total before")
     saved = models.DecimalField(max_digits=12, decimal_places=2, default=0.00, null=True, blank=True, help_text="Amount saved")
+    address= models.ForeignKey("customer.Address", on_delete=models.SET_NULL, null=True, blank=True)
     coupons = models.ManyToManyField(Coupon, blank=True)
     order_id = ShortUUIDField(length=6, max_length=25, alphabet="1234567890")
     payment_id = models.CharField(null=True, blank=True, max_length=1000)

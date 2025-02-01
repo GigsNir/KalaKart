@@ -132,29 +132,18 @@
 
       /* Index or Home*/
 
-/* Add to Cart Button */
-.add_to_cart {
-    background-color: #800000 !important;
-    border: none;
-    color: #ffffff !important;
-    padding: 6px 12px;
-    transition: background-color 0.3s ease;
-}
-
-/* Hover Effect for Add to Cart Button */
-.add_to_cart:hover {
-    background-color: #9b2d2d !important; /* Slightly lighter maroon */
-}
-
-/* Heart Icon
-.fas.fa-heart {
-    color: #800000 !important;
-    transition: color 0.3s ease;
-} */
-
 /* Heart Icon Hover */
 .fas.fa-heart:hover {
     color: #9b2d2d !important;
+}
+
+.fas.fa-shopping-cart:hover {
+    color: #9b2d2d !important;
+}
+
+.stripe-btn {
+    background-color: #635BFF;
+    color: white;
 }
 
    /* Ensure navbar stays in a single line */
@@ -263,8 +252,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="{% url 'store:cart' %}"
-                    ><i class="fas fa-shopping-cart text-white"></i
+                  <a href="{% url 'store:cart' %}"><i class="fas fa-shopping-cart text-white"></i
                     ><span class="dn-counter total_cart_items">{{total_cart_items}}</span>
                   </a>
                 </li>
@@ -291,11 +279,11 @@
       </div>
 
       {% for message in messages %}
-      {% if message %}
-        <div class="alert alert-{{ message.tag }}">
+      
+        <div class="alert alert-{{ message.tags }}">
           <strong>{{ message }}</strong>
         </div>
-      {% endif %}
+      
       {% endfor %}  
       <!--Header ends-->
 

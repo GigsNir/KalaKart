@@ -7,6 +7,8 @@ from store.models import Product
 from customer import models as customer_models 
 from django.contrib import messages
 
+from plugin.tax_calculation import tax_calculation
+
 
 def index(request):
     products= store_models.Product.objects.filter(status="Published")
@@ -132,3 +134,60 @@ def delete_cart_item(request):
         "total_cart_items": total_cart_items.count(),
         "cart_sub_total" : "{:,.2f}".format(cart_sub_total) if cart_sub_total else 0.00
     })
+
+def create_order(request):
+    if request.method== "POST":
+        address_id = request.POST.get("address")
+
+        if not address_id:
+            messages.warning(request,"Please select an address to continue")
+            return redirect("store:cart")
+        
+        address = customer_models.Address.objects.filter(user=request.user, id= address_id).first()
+
+        if 'cart_id' in request.session:
+            cart_id= request.session['cart_id']
+        else:
+            cart_id= None
+
+        items = store_models.Cart.objects.filter(Q(cart_id=cart_id) | Q(user= request.user) if request.user.is_authenticated else Q(cart_id=cart_id))
+        cart_sub_total = store_models.Cart.objects.filter(Q(cart_id=cart_id) | Q(user= request.user) if request.user.is_authenticated else Q(cart_id=cart_id)).aggregate(sub_total = Sum("sub_total"))["sub_total"]
+        cart_shipping_total = store_models.Cart.objects.filter(Q(cart_id=cart_id) | Q(user= request.user) if request.user.is_authenticated else Q(cart_id=cart_id)).aggregate(shipping = Sum("shipping"))["shipping"]
+
+        order = store_models.Order()
+        order.sub_total = cart_sub_total
+        order.customer = request.user or None
+        order.address= address
+        order.shipping = cart_shipping_total
+        order.tax = tax_calculation(address.country, cart_sub_total)
+        order.total = order.sub_total + order.shipping+ Decimal (order.tax)
+        order.initial_total= order.total
+        order.save()
+
+        for i in items:
+            store_models.OrderItem.objects.create(
+                order= order,
+                product=i.product,
+                qty=i.qty,
+                color= i.color,
+                size=i.size,
+                price= i.price,
+                sub_total=i.sub_total,
+                shipping=i.shipping,
+                tax= tax_calculation(address.country, i.sub_total),
+                total= i.total,
+                initial_total=i.total,
+                vendor=i.product.vendor
+            )
+
+            order.vendors.add(i.product.vendor)
+
+    return redirect("store:checkout", order.order_id)
+
+def checkout(request, order_id):
+     order = store_models.Order.objects.get(order_id= order_id)
+
+     context = {
+         "order":order
+     }
+     return render(request,"store/checkout.html", context)
