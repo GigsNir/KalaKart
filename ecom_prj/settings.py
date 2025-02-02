@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 from environs import Env
+from django.contrib import messages
 
 env = Env()
 env.read_env()
@@ -32,6 +33,7 @@ SECRET_KEY = 'django-insecure-oa+r$6j0vr66lfddj3$47g(2@_leihk()-f0k4vos^#)6tu%s)
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
 
 # Application definition
@@ -150,6 +152,13 @@ AUTH_USER_MODEL = "userauths.User"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAYPAL_CLIENT_ID = env("PAYPAL_CLIENT")
+PAYPAL_SECRET_ID  = env("PAYPAL_SECRET_ID")
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 customColorPalette = [
     {"color": "hsl(4, 90%, 58%)", "label": "Red"},

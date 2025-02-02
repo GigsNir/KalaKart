@@ -21,10 +21,9 @@ PAYMENT_STATUS = (
 )
 
 PAYMENT_METHOD = (
-    ("Paypal", "Paypal"),
+    ("Khalti", "Khalti"),
+    ("PayPal", "PayPal"),
     ("Stripe", "Stripe"),
-    ("Paystack", "Paystack"),
-    ("RazorPay", "RazorPay"),
 )
 
 ORDER_STATUS = (
