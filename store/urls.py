@@ -14,4 +14,6 @@ urlpatterns = [
     path("coupon_apply/<order_id>/", views.coupon_apply , name="coupon_apply"),
     path("paypal_payment_verify/<order_id>/", views.paypal_payment_verify , name="paypal_payment_verify"),
     path("payment_status/<order_id>/", views.payment_status , name="payment_status"),
+    path("stripe_payment/<order_id>/", views.stripe_payment , name="stripe_payment "),
+    path("stripe_payment_verify/<order_id>/", views.stripe_payment_verify , name="stripe_payment_verify"),
     ]

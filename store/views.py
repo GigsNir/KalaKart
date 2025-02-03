@@ -2,15 +2,19 @@ from decimal import Decimal
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.db.models import Sum,Avg,Q
+from django.urls import reverse
 from store import models as store_models
 from store.models import Product 
 from customer import models as customer_models 
 from django.contrib import messages
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
 import requests
+import stripe
 from plugin.tax_calculation import tax_calculation
 
 EXCHANGE_RATE = 132
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def index(request):
@@ -195,6 +199,7 @@ def checkout(request, order_id):
          "order":order,
          "paypal_client_id" : settings.PAYPAL_CLIENT_ID,
          'total_in_usd': total_in_usd,
+         "stripe_public_key" : settings.STRIPE_PUBLIC_KEY,
      }
      return render(request,"store/checkout.html", context)
 
@@ -304,3 +309,55 @@ def payment_status(request, order_id):
         "payment_status": payment_status
     }
     return render(request, "store/payment_status.html", context)
+
+@csrf_exempt
+def stripe_payment(request, order_id):
+    order = store_models.Order.objects.get(order_id=order_id)
+    
+
+    total_in_usd = round(order.total / EXCHANGE_RATE, 2)
+
+    checkout_session = stripe.checkout.Session.create(
+        customer_email = order.address.email,
+        payment_method_types=['card'],
+        line_items = [
+            {
+                'price_data': {
+                    'currency': 'USD',
+                    'product_data': {
+                        'name': order.address.full_name
+                    },
+                    'unit_amount': int(total_in_usd * 100)
+                },
+                'quantity': 1
+            }
+        ],
+        mode = 'payment',
+        success_url = request.build_absolute_uri(reverse("store:stripe_payment_verify", args=[order.order_id])) + "?session_id={CHECKOUT_SESSION_ID}" + "&payment_method=Stripe",
+        cancel_url = request.build_absolute_uri(reverse("store:stripe_payment_verify", args=[order.order_id]))
+    )
+
+    print("checkout session", checkout_session)
+    return JsonResponse({"sessionId": checkout_session.id})
+
+def stripe_payment_verify(request, order_id):
+    order = store_models.Order.objects.get(order_id=order_id)
+   
+
+    session_id = request.GET.get("session_id")
+    session = stripe.checkout.Session.retrieve(session_id)
+    print(session["payment_status"])
+
+    if session.payment_status == "paid" :
+        payment_method = "Stripe"
+        if order.payment_status == "Processing":
+            order.payment_status = "Paid"
+           
+            order.payment_method = payment_method
+            order.save()
+            
+            clear_cart_items(request)
+            return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
+        
+   
+    return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")

@@ -64,9 +64,9 @@
                                     <h4 class="fs-3">Rs{{item.price |intcomma}}</h4>
                                 </div>
                                 <div class="col-lg-2 d-flex">
-                                    <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="decrease" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">-</button>
+                                    <button  type="button" class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="decrease" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">-</button>
                                     <input type="text" class="form-control form-sm item-qty-{{item.id}}" value="{{item.qty}}" name="" id="" />
-                                    <button class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="increase" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">+</button>
+                                    <button type="button"  class="btn bg-primary text-white btn-sm update_cart_qty" data-update_type="increase" data-item_id="{{item.id}}" data-product_id="{{item.product.id}}">+</button>
                                 </div>
                                 <div class="col-lg-2">
                                     <h4 class="fs-3 mb-0">Rs <span class="item_sub_total_{{item.id}}">{{item.sub_total | intcomma}}</span></h4>

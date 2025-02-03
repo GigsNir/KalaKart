@@ -136,10 +136,11 @@
                 </div>
 
                 <div class="w-100 mt-3">
-                    <a href="/payment_status.html" class="btn khalti-btn rounded w-100 mb-3">Pay With Khalti <i class="fas fa-credit-card ms-1"></i></a>
-                    <a href="/payment_status.html" class="btn stripe-btn rounded w-100 mb-3">Pay With Stripe <i class="fas fa-credit-card ms-1"></i></a>
-                    <div id="paypal-button-container"></div>
+                    <button type="submit" class="btn khalti-btn rounded w-100 mb-3">Pay With Khalti <i class="fas fa-credit-card ms-1"></i>
+                    <button type="submit" id="stripe-payment" class="btn stripe-btn rounded w-100 mb-3">Pay With Stripe <i class="fas fa-credit-card ms-1"></i>
+                   
                 </div>
+                <div id="paypal-button-container"></div>
                 
             </div>
         </div>
@@ -152,17 +153,16 @@
 <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
 
 <script>
-    var stripe = Stripe("your_stripe_public_key_here"); // Replace with your actual Stripe public key
+    var stripe = Stripe("{{stripe_public_key}}"); 
     var checkoutButton = document.getElementById("stripe-payment");
 
     try {
         checkoutButton.addEventListener("click", function () {
-            var email = "user_email_here"; // Replace with the user's email
-
+            var email = "{{order.address.email}}"; 
             checkoutButton.innerHTML = "Processing <i class='fas fa-spinner fa-spin'></i>";
 
-            fetch("/stripe_payment/order_id_here/", {
-                // Replace with your actual order ID
+            fetch("/stripe_payment/{{order.order_id}}/", {
+               
                 method: "POST",
                 body: JSON.stringify({ email: email }),
             })
