@@ -4,6 +4,8 @@ from django.http import JsonResponse
 from django.db.models import Sum,Avg,Q
 from django.urls import reverse
 from store import models as store_models
+from customer import models as customer_models
+from vendor import models as vendor_models
 from store.models import Product 
 from customer import models as customer_models 
 from django.contrib import messages
@@ -11,7 +13,18 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import stripe
+import json
+from django.http import JsonResponse
 from plugin.tax_calculation import tax_calculation
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from userauths import models as userauth_models
+import smtplib
+from django.core.mail import send_mail
+from django.conf import settings
+import re
+from django.utils.encoding import force_str
+
 
 EXCHANGE_RATE = 132
 stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -200,6 +213,7 @@ def checkout(request, order_id):
          "paypal_client_id" : settings.PAYPAL_CLIENT_ID,
          'total_in_usd': total_in_usd,
          "stripe_public_key" : settings.STRIPE_PUBLIC_KEY,
+         "khalti_public_key": settings.KHALTI_PUBLIC_KEY,
      }
      return render(request,"store/checkout.html", context)
 
@@ -272,6 +286,32 @@ def get_paypal_access_token():
     else:
         raise Exception(f'Failed to get access token from PayPal. Status code: {response.status_code}') 
 
+# def paypal_payment_verify(request, order_id):
+#     order = store_models.Order.objects.get(order_id=order_id)
+
+#     transaction_id = request.GET.get("transaction_id")
+#     paypal_api_url = f'https://api-m.sandbox.paypal.com/v2/checkout/orders/{transaction_id}'
+#     headers = {
+#         'Content-Type': 'application/json',
+#         'Authorization': f'Bearer {get_paypal_access_token()}',
+#     }
+#     response = requests.get(paypal_api_url, headers=headers)
+
+#     if response.status_code == 200:
+#         paypal_order_data = response.json()
+#         paypal_payment_status = paypal_order_data['status']
+#         payment_method = "PayPal"
+#         if paypal_payment_status == 'COMPLETED':
+#             if order.payment_status == "Processing":
+#                 order.payment_status = "Paid"
+#                 order.payment_method = payment_method
+#                 order.save() 
+
+#                 clear_cart_items(request)
+#                 return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
+#     else:
+#         return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")
+    
 def paypal_payment_verify(request, order_id):
     order = store_models.Order.objects.get(order_id=order_id)
 
@@ -279,7 +319,7 @@ def paypal_payment_verify(request, order_id):
     paypal_api_url = f'https://api-m.sandbox.paypal.com/v2/checkout/orders/{transaction_id}'
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': f'Bearer {get_paypal_access_token()}',
+        'Authorization': f'Bearer {get_paypal_access_token()}',  # Assuming this function is defined to get the token
     }
     response = requests.get(paypal_api_url, headers=headers)
 
@@ -287,18 +327,42 @@ def paypal_payment_verify(request, order_id):
         paypal_order_data = response.json()
         paypal_payment_status = paypal_order_data['status']
         payment_method = "PayPal"
+        
         if paypal_payment_status == 'COMPLETED':
             if order.payment_status == "Processing":
                 order.payment_status = "Paid"
                 order.payment_method = payment_method
-                order.save() 
+                order.save()
 
                 clear_cart_items(request)
-                return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
-    else:
-        return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")
-    
 
+                # Prepare the email content (text and HTML)
+                user_email = order.customer.email
+                username = force_str(order.customer.username)
+
+                # Prepare data for the email template
+                customer_merge_data = {
+                    'order': order,
+                    'order_items': order.order_items(),  
+                }
+
+                # Render both text and HTML versions of the email content
+                text_body = render_to_string("email/order/customer/customer_new_order.txt", customer_merge_data)
+                html_body = render_to_string("email/order/customer/customer_new_order.html", customer_merge_data)
+
+                # Send email with both text and HTML versions
+                msg = EmailMultiAlternatives(
+                    subject=f"Order #{order_id} - Payment Successful",
+                    from_email=settings.EMAIL_HOST_USER,
+                    to=[user_email],
+                    body=text_body
+                )
+                msg.attach_alternative(html_body, "text/html")
+                msg.send()
+
+                return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
+
+    return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")
     
 def payment_status(request, order_id):
     order = store_models.Order.objects.get(order_id=order_id)
@@ -340,24 +404,116 @@ def stripe_payment(request, order_id):
     print("checkout session", checkout_session)
     return JsonResponse({"sessionId": checkout_session.id})
 
+ 
 def stripe_payment_verify(request, order_id):
     order = store_models.Order.objects.get(order_id=order_id)
-   
-
+    
     session_id = request.GET.get("session_id")
     session = stripe.checkout.Session.retrieve(session_id)
-    print(session["payment_status"])
 
-    if session.payment_status == "paid" :
-        payment_method = "Stripe"
+    if session.payment_status == "paid":
         if order.payment_status == "Processing":
             order.payment_status = "Paid"
-           
-            order.payment_method = payment_method
+            order.payment_method = "Stripe"
             order.save()
-            
+                
+            clear_cart_items(request)
+            customer_models.Notifications.objects.create(type="New Order", user=request.user)
+
+            # Prepare the email content (text and HTML)
+            order = store_models.Order.objects.get(order_id=order_id)
+            user_email = order.customer.email
+            username = force_str(order.customer.username)
+
+            # Prepare data for the email template
+            customer_merge_data = {
+                'order': order,
+                'order_items': order.order_items(),  # Assuming you have a method to get order items
+            }
+
+            # Render both text and HTML versions of the email content
+            text_body = render_to_string("email/order/customer/customer_new_order.txt", customer_merge_data)
+            html_body = render_to_string("email/order/customer/customer_new_order.html", customer_merge_data)
+
+            # Send email with both text and HTML versions
+            msg = EmailMultiAlternatives(
+                subject=f"Order #{order_id} - Payment Successful",
+                from_email=settings.EMAIL_HOST_USER,
+                to=[user_email],
+                body=text_body
+            )
+            msg.attach_alternative(html_body, "text/html")
+            msg.send()
+
+            return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
+
+    return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")
+
+
+
+
+
+           
+
+
+def initiate_khalti_payment(request, order_id):
+    order = store_models.Order.objects.get(order_id=order_id)
+    total_in_npr = order.total  
+
+    url = "https://dev.khalti.com/api/v2/epayment/initiate/"
+    payload = {
+        "website_url": "http://127.0.0.1:8000/",
+        "amount": int(total_in_npr * 100),  # Amount in paisa 
+        "purchase_order_id": order.order_id,
+        "purchase_order_name": f"Order {order.order_id}",
+        "return_url": request.build_absolute_uri(reverse("store:khalti_payment_verify", args=[order.order_id])),
+    }
+    headers = {
+        'Authorization' : 'Key {settings.KHALTI_SECRET_KEY}',
+        'Content-Type': 'application/json',
+    }
+
+    response = requests.post(url, data=json.dumps(payload), headers=headers)
+    response_data = response.json()
+
+    if response.status_code == 200:
+        return JsonResponse({"payment_url": response_data["payment_url"]})
+    else:
+        # Return the detailed error message from response_data
+        error_message = response_data.get("detail", "Failed to initiate Khalti payment")
+        return JsonResponse({"error": error_message}, status=400)
+
+def khalti_payment_verify(request, order_id):
+    order = store_models.Order.objects.get(order_id=order_id)
+    token = request.GET.get("token")
+
+    url = "https://khalti.com/api/v2/payment/verify/"
+    payload = {
+        "token": token,
+        "amount": int(order.total * 100),  # Amount in paisa
+    }
+    headers = {
+        "Authorization": f"Key {settings.KHALTI_SECRET_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    response = requests.post(url, data=json.dumps(payload), headers=headers)
+    response_data = response.json()
+
+    if response.status_code == 200:
+        # If payment is successful, update order status
+        if order.payment_status == "Processing":
+            order.payment_status = "Paid"
+            order.payment_method = "Khalti"
+            order.save()
+
             clear_cart_items(request)
             return redirect(f"/payment_status/{order.order_id}/?payment_status=paid")
-        
-   
-    return redirect(f"/payment_status/{order.order_id}/?payment_status=failed")
+    else:
+        # Return error message from response_data if verification fails
+        error_message = response_data.get("detail", "Failed to verify Khalti payment")
+        return redirect(f"/payment_status/{order.order_id}/?payment_status=failed&error={error_message}")
+
+
+
+

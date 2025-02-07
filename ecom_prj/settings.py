@@ -103,6 +103,24 @@ DATABASES = {
     }
 }
 
+# ANYMAIL = {
+#     "MAILGUN_API_KEY": os.environ.get("MAILGUN_API_KEY"),
+#     "MAILGUN_SENDER_DOMAIN": os.environ.get("MAILGUN_SENDER_DOMAIN")
+# }
+
+# FROM_EMAIL = env("FROM_EMAIL")
+# EMAIL_BACKEND= env("EMAIL_BACKEND")
+# DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+# SERVER_EMAIL = env("SERVER_EMAIL")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "kalakartecom@gmail.com"
+EMAIL_HOST_PASSWORD = "dpphjetzzcludojh"  
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

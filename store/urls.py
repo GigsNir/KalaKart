@@ -1,6 +1,8 @@
 from django.urls import path
 from store import views
 
+
+
 app_name = "store"
 
 urlpatterns = [
@@ -16,4 +18,10 @@ urlpatterns = [
     path("payment_status/<order_id>/", views.payment_status , name="payment_status"),
     path("stripe_payment/<order_id>/", views.stripe_payment , name="stripe_payment "),
     path("stripe_payment_verify/<order_id>/", views.stripe_payment_verify , name="stripe_payment_verify"),
+
+    path('khalti/initiate/<order_id>/', views.initiate_khalti_payment, name='initiate_khalti_payment'),
+    path('khalti/verify/<order_id>/', views.khalti_payment_verify, name='khalti_payment_verify'),   
+  
+
     ]
+

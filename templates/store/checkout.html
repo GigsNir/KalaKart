@@ -136,8 +136,11 @@
                 </div>
 
                 <div class="w-100 mt-3">
-                    <button type="submit" class="btn khalti-btn rounded w-100 mb-3">Pay With Khalti <i class="fas fa-credit-card ms-1"></i>
-                    <button type="submit" id="stripe-payment" class="btn stripe-btn rounded w-100 mb-3">Pay With Stripe <i class="fas fa-credit-card ms-1"></i>
+                    <!-- <button type="submit" class="btn khalti-btn rounded w-100 mb-3">Pay With Khalti <i class="fas fa-credit-card ms-1"></i> -->
+                    <button type="button" id="khalti-button" class="btn khalti-btn rounded w-100 mb-3">Pay With Khalti <i class="fas fa-credit-card ms-1"></i></button>  
+                  
+
+                    <button type="submit" id="stripe-payment" class="btn stripe-btn rounded w-100 mb-3">Pay With Stripe <i class="fas fa-credit-card ms-1"></i> 
                    
                 </div>
                 <div id="paypal-button-container"></div>
@@ -150,7 +153,9 @@
 <script src="https://www.paypal.com/sdk/js?client-id={{paypal_client_id}}&currency=USD"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+<script src="https://unpkg.com/khalti-checkout-web@latest/dist/khalti-checkout.iffe.js"></script>
+
+
 
 <script>
     var stripe = Stripe("{{stripe_public_key}}"); 
@@ -236,50 +241,24 @@
     initPayPalButton();
 </script>
 
-<!-- Khalti Payment Script
-<script>
-    // Khalti configuration
-    var config = {
-        "publicKey": "your_khalti_public_key_here", // Replace with your Khalti public key
-        "productIdentity": "order_id_here", // Replace with your actual order ID
-        "productName": "Your Product Name", // Replace with your product name
-        "productUrl": "http://yourwebsite.com/product_url", // Replace with your product URL
-        "paymentPreference": [
-            "KHALTI",
-            "EBANKING",
-            "MOBILE_BANKING",
-            "CONNECT_IPS",
-            "SCT",
-        ],
-        "eventHandler": {
-            onSuccess(payload) {
-                // Handle successful payment
-                console.log("Payment successful:", payload);
 
-                // Verify payment on your server
-                fetch("/khalti_payment_verify/order_id_here/", {
-                    // Replace with your actual order ID
-                    method: "POST",
-                    body: JSON.stringify(payload),
-                })
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        console.log("Verification response:", data);
-                        window.location.href = `/khalti_payment_success/{{order.order_id}}/?transaction_id=${payload.idx}`; // Replace with your actual order ID
-                    })
-                    .catch(function (error) {
-                        console.log("Error verifying payment:", error);
-                    });
+<!-- <script>
+    var orderTotal = parseInt("{{ order.total }}");  // Convert template variable to number
+
+    var khaltiConfig = {
+        "publicKey": "{{ khalti_public_key }}",
+        "productIdentity": "{{ order.order_id }}",
+        "productName": "Order #{{ order.order_id }}",
+        "productUrl": window.location.href,
+        "amount": orderTotal * 100,  // Khalti expects paisa, so multiply by 100
+        "eventHandler": {
+            onSuccess: function (payload) {
+                window.location.href = `/store/khalti_payment_verify/{{ order.order_id }}?token=${payload.token}&amount=${payload.amount}`;
             },
-            onError(error) {
-                console.log("Payment error:", error);
-            },
-            onClose() {
-                console.log("Payment widget closed");
-            },
-        },
+            onError: function (error) {
+                alert("Payment failed! Please try again.");
+            }
+        }
     };
 
     // Initialize Khalti Checkout
@@ -290,6 +269,42 @@
     khaltiButton.addEventListener("click", function () {
         checkout.show({ amount: 1000 }); // Replace with your actual amount in paisa (e.g., 1000 paisa = Rs 10)
     });
-</script> -->
+</script> --> 
+
+ <script>
+    var orderTotal = parseInt("{{ order.total }}");  // Convert template variable to number
+
+    var config = {
+        "publicKey": "{{ khalti_public_key }}",
+        "productIdentity": "{{ order.order_id }}",
+        "productName": "Order #{{ order.order_id }}",
+        "productUrl": window.location.href,
+        "amount": orderTotal * 100,  
+        "eventHandler": {
+            onSuccess: function (payload) {
+                window.location.href = `/store/khalti_payment_verify/{{ order.order_id }}?token=${payload.token}&amount=${payload.amount}`;
+            },
+            onError: function (error) {
+                alert("Payment failed! Please try again.");
+            }
+        }
+    };
+
+    // Initialize Khalti Checkout
+    var checkout = new KhaltiCheckout(config);
+
+    // Add event listener to Khalti payment button
+    var khaltiButton = document.getElementById("khalti-button");
+    khaltiButton.addEventListener("click", function () {
+        checkout.show({ amount: orderTotal * 100 }); // Amount in paisa
+    });
+
+    khaltiButton.addEventListener("click", function () {
+    console.log("Khalti button clicked!");
+    checkout.show({ amount: orderTotal * 100 });
+    console.log("Khalti checkout should appear now!");  // Debugging
+});
+</script>   
+
 
 {% endblock content %}
