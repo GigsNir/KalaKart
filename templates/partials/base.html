@@ -268,21 +268,21 @@
                   </a>
                 </li>
 
+                {% if request.user.is_authenticated %}
                 <li>
-                  <a
-                    href="/auth/sign-in.html"
-                    class="btn py-2 px-4 rounded custom-btn"
-                    >Sign In <i class="fas fa-sign-in-alt ms-1"></i
-                  ></a>
+                  <a href="{% url 'userauths:sign-out'%}" class="btn py-2 px-4 rounded custom-btn"> <i class="fas fa-sign-in-alt me-1"></i>Sign Out </a>
+                </li>
+                {% else %}
+                <li>
+                  <a href="{% url 'userauths:sign-in'%}" class="btn py-2 px-4 rounded custom-btn">Sign In <i class="fas fa-sign-in-alt ms-1"></i></a>
                 </li>
 
                 <li>
-                  <a
-                    href="/auth/sign-up.html"
-                    class="btn py-2 px-4 rounded custom-btn"
-                    >Sign Up <i class="fas fa-user-plus ms-1"></i
-                  ></a>
+                  <a href="{% url 'userauths:sign-up'%}" class="btn py-2 px-4 rounded custom-btn">Sign Up <i class="fas fa-user-plus ms-1"></i></a>
                 </li>
+                {% endif %}
+
+                
               </ul>
             </div>
           </nav>
