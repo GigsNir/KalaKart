@@ -22,7 +22,7 @@ TYPE = (
 )
 
 class Vendor (models.Model) :
-    user = models.OneToOneField(User, on_delete=models. SET_NULL, null=True, related_name="vendor")
+    user = models.OneToOneField(User, on_delete = models. SET_NULL, null=True, related_name="vendor")
     image = models. ImageField(upload_to="images", default="shop-image.jpg", blank=True)
     store_name = models.CharField(max_length=100, null=True, blank=True)
     description = models. TextField(null=True, blank=True)

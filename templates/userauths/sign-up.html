@@ -22,6 +22,7 @@
                 <p class="mb-3">Welcome to our store, create a free account today!</p>
                 <form class="border p-3 rounded" method="POST">
                     {% csrf_token %}
+                    
                     <div class="row">
                         <div class="form-group col-md-12 mb-4">
                             <label>Full name *</label>
@@ -32,28 +33,32 @@
                             <label>Email *</label>
                             {{form.email}}
                         </div>
+                        
 
                         <div class="form-group col-md-6 mb-4">
                             <label>Mobile *</label>
                             {{form.mobile}}
                         </div>
+                       
 
                         <div class="form-group col-md-6 mb-4">
                             <label>Password *</label>
                             {{form.password1}}
                         </div>
+                
 
                         <div class="form-group col-md-6 mb-4">
                             <label>Confirm Password *</label>
                             {{form.password2}}
                         </div>
+                      
 
                         <div class="form-group col-md-6 mb-4">
                             <label>Create Account As</label>
                             {{form.user_type}}
                         </div>
 
-                        
+                       
                     </div>
 
                     <div class="form-group mb-4">

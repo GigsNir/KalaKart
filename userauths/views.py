@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.sessions.models import Session
-import bcrypt  
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 
 from userauths import models as userauths_models
 from userauths import forms as userauths_forms
@@ -10,107 +10,136 @@ from vendor import models as vendor_models
 
 
 def register_view(request):
-    if request.session.get('user_id'):
-        messages.warning(request, "You are already logged in")
-        return redirect('/')
+    if request.method == 'POST':
+        print("Form submitted!")
+        print("POST data:", request.POST)
     
-    form = userauths_forms.UserRegistrationForm(request.POST or None)
+    if request.user.is_authenticated:
+        messages.warning(request, f"You are already logged in")
+        return redirect('/')   
+
+    form = userauths_forms.UserRegisterForm(request.POST or None)
 
     if form.is_valid():
+        print("Form is valid!")
+        user = form.save()
+
         full_name = form.cleaned_data.get('full_name')
         email = form.cleaned_data.get('email')
         mobile = form.cleaned_data.get('mobile')
-        password = form.cleaned_data.get('password1')  # Raw password
+        password = form.cleaned_data.get('password1')
         user_type = form.cleaned_data.get("user_type")
 
-        # Check if email already exists
-        if userauths_models.User.objects.filter(email=email).exists():
-            messages.error(request, "Email is already registered")
-            return redirect('/register')
-        
-        # Hash password using bcrypt
-        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        user = authenticate(email=email, password=password)
+        login(request, user)
 
-        # Create the user object (with only the fields from AbstractUser)
-        user = userauths_models.User.objects.create(
-            email=email,
-            password=hashed_password.decode('utf-8')  # Store hashed password
-        )
-
-        # Create the profile with full_name, mobile, and other info
-        profile = userauths_models.Profile.objects.create(
-            user=user,
-            full_name=full_name,
-            mobile=mobile
-        )
-
-        # Assign the user type and create vendor if necessary
+        messages.success(request, f"Account was created successfully.")
+        profile = userauths_models.Profile.objects.create(full_name = full_name, mobile = mobile, user=user)
         if user_type == "Vendor":
             vendor_models.Vendor.objects.create(user=user, store_name=full_name)
             profile.user_type = "Vendor"
         else:
             profile.user_type = "Customer"
-
+        
         profile.save()
 
-        # Success message and redirect to login page
-        messages.success(request, "Account was created successfully.")
-        return redirect('/login/')
-    
-    return render(request, 'userauths/sign-up.html', {'form': form})
+        next_url = request.GET.get("next", 'store:index')
+        return redirect(next_url)
+    else:
+        print("Form errors:", form.errors)
+    context = {
+        'form':form
+    }
+    return render(request, 'userauths/sign-up.html', context)
 
+# def login_view(request):
+    
+#     if request.user.is_authenticated:
+#         messages.warning(request, "You are already logged in")
+#         return redirect('store:index')
+    
+#     if request.method == 'POST':
+#         form = userauths_forms.LoginForm(request.POST)  
+#         if form.is_valid():
+#             email = form.cleaned_data['email']
+#             password = form.cleaned_data['password']
+
+#             try:
+#                 user_instance = userauths_models.User.objects.get(email=email, is_active=True)
+#                 user_authenticate = authenticate(request, email=email, password=password)
+
+#                 if user_instance is not None:
+#                     login(request, user_authenticate)
+#                     messages.success(request, "You are Logged In")
+#                     next_url = request.GET.get("next", 'store:index')
+
+#                     # Handle redirect logic
+#                     if next_url == '/undefined/':
+#                         return redirect('store:index')
+                    
+#                     if next_url == 'undefined':
+#                         return redirect('store:index')
+
+#                     if next_url is None or not next_url.startswith('/'):
+#                         return redirect('store:index')
+
+#                     return redirect(next_url)
+
+                  
+#                 else:
+#                     messages.error(request, 'Username or password does not exist')
+#             except userauths_models.User.DoesNotExist:
+#                 messages.error(request, 'User does not exist')
+
+#     else:
+#         form = userauths_forms.LoginForm()  
+
+#     return render(request, "userauths/sign-in.html", {'form': form})
 
 def login_view(request):
-    if request.session.get('user_id'):
+    if request.user.is_authenticated:
         messages.warning(request, "You are already logged in")
-        return redirect('store:index')  # Adjusted redirect path as needed
+        return redirect('store:index')
     
     if request.method == 'POST':
-        form = userauths_forms.LoginForm(request.POST)
+        form = userauths_forms.LoginForm(request.POST)  
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+            print("Attempting to authenticate with email:", email)
 
-            try:
-                user = userauths_models.User.objects.get(email=email)
+            # Attempt to authenticate the user
+            user_authenticate = authenticate(request, email=email, password=password)
 
-                if bcrypt.checkpw(password.encode(), user.password.encode()):
-                    request.session['user_id'] = user.id
-                    request.session['user_email'] = user.email
+            if user_authenticate is not None:
+                print("Authentication successful")
+                login(request, user_authenticate)
+                messages.success(request, "You are Logged In")
+                
+                next_url = request.GET.get("next", 'store:index')
 
-                    messages.success(request, "You are logged in")
-                    return redirect('store:index')  # Redirect to store index or wherever
-                else:
-                    messages.error(request, "Invalid email or password")
+                if next_url == '/undefined/' or next_url == 'undefined' or not next_url.startswith('/'):
+                    return redirect('store:index')
 
-            except userauths_models.User.DoesNotExist:
-                messages.error(request, "User does not exist")
+                return redirect(next_url)
+            else:
+                print("Authentication failed")
+                messages.error(request, 'Invalid credentials, please try again.')
         else:
-            messages.error(request, "Please correct the errors in the form")
+            messages.error(request, 'Form is not valid.')
 
     else:
-        form = userauths_forms.LoginForm()  # Create an empty form if GET request
-    
+        form = userauths_forms.LoginForm()  
+
     return render(request, "userauths/sign-in.html", {'form': form})
 
+
 def logout_view(request):
-    # Preserve the cart_id before logging out
-    if 'cart_id' in request.session:
+    if "cart_id" in request.session:
         cart_id = request.session['cart_id']
     else:
         cart_id = None
-
-    # Clear user-specific session data
-    if 'user_id' in request.session:
-        del request.session['user_id']
-    if 'user_email' in request.session:
-        del request.session['user_email']
-
-    # Restore the cart_id after clearing the session
+    logout(request)
     request.session['cart_id'] = cart_id
-
-    # Show logout message
-    messages.success(request, "You have been logged out successfully.")
-
-    # Redirect to sign-in page
+    messages.success(request, 'You have been logged out.')
     return redirect("userauths:sign-in")
